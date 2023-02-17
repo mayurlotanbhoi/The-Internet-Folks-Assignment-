@@ -52,24 +52,14 @@ const RequisitionDetailsForm: React.FC<{
 
   const data = useData()
   useEffect(() => {
-    let { setState, state } = data;
-    state.requisitionDetails = { ...values }
-    const newState = { ...state }
-
-
-    setState(newState)
+    if (data != null) {
+      let { setState, state } = data;
+      state.requisitionDetails = { ...values }
+      const newState = { ...state }
+      setState(newState)
+    }
     // console.log(data);
   }, [values.gender, values.noOfOpenings, values.requisitionTitle, values.urgency])
-
-
-
-
-
-
-
-
-  // console.log(setStatefun())
-
 
 
 

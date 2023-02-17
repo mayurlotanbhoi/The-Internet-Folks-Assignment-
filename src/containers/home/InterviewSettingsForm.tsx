@@ -1,6 +1,6 @@
 'use client';
 import { Button, Flex, Box } from "@chakra-ui/react";
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import FormSelect from "../../components/formComponents/FormSelect";
 import { useFormik } from "formik";
 import { PageNumbers } from "../../interface/home";
@@ -11,7 +11,7 @@ import {
   interviewModeOptions,
 } from "./constants";
 import * as Yup from "yup";
-import {useData} from "./DataProvider"
+import { useData } from "./DataProvider"
 const InterviewDetailsForm: React.FC<{
   handleTab: (n: PageNumbers) => void;
 }> = ({ handleTab }) => {
@@ -28,7 +28,7 @@ const InterviewDetailsForm: React.FC<{
       interviewDuration: "",
       interviewLanguage: "",
     },
-// validate input Schima
+    // validate input Schima
     validationSchema: Yup.object().shape({
       interviewMode: Yup.string().required("Requisition Interview Mode is required"),
       // noOfOpenings: Yup.number()
@@ -36,8 +36,8 @@ const InterviewDetailsForm: React.FC<{
       //   .required("Number of openings is required")
       //   .positive("Enter a valid number")
       //   .min(1, "Enter a valid number"),
-        interviewDuration: Yup.string().required("Interview Duration is required"),
-        interviewLanguage: Yup.string().required("Job Location is required"),
+      interviewDuration: Yup.string().required("Interview Duration is required"),
+      interviewLanguage: Yup.string().required("Job Location is required"),
     }),
 
     onSubmit: (values) => {
@@ -46,21 +46,24 @@ const InterviewDetailsForm: React.FC<{
     },
   });
 
-  const data = useData()
+
 
   // console.log(data?.state.requisitionDetails)
 
+  const data = useData()
+  useEffect(() => {
 
-  useEffect(() =>{
-let { setState,state } = data;
- state.interviewSettings =   {...values}
+    if (data != null) {
+      let { setState, state } = data;
+      state.interviewSettings = { ...values }
 
- const newState = {
-  ...state,
- }
- setState(newState)
+      const newState = {
+        ...state,
+      }
+      setState(newState)
+    }
 
-  },[values.interviewDuration, values.interviewLanguage, values.interviewMode])
+  }, [values.interviewDuration, values.interviewLanguage, values.interviewMode])
 
   return (
     <Box width="100%" as="form" onSubmit={handleSubmit as any}>
